@@ -34,40 +34,65 @@ Latest: <https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/la
 ## Install — Linux / macOS
 
 ```sh
-# 1. Download the release bundle (replace VERSION with e.g. v0.1.0)
-curl -LO https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/VERSION/meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
+# 1. Download the release bundle (bump v0.1.0 once a newer tag is published)
+curl -LO https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/v0.1.0/meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
 
 # 2. Copy to linxdot
-scp meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
+scp meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
 
 # 3. SSH in and install
 ssh root@<linxdot-ip>
 cd /tmp
-tar -xzf meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
-cd meshtastic-bridge-VERSION
+tar -xzf meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+cd meshtastic-bridge-v0.1.0
 sh install.sh
 ```
 
-## Install — Windows PowerShell
+## Install — Windows
 
-Windows 10 (1809+) and Windows 11 ship OpenSSH (`ssh` + `scp`) by
-default, so the exact same flow works in PowerShell. The four commands
-after `scp` run on linxdot, not Windows — they require nothing extra.
+Windows 10 (1803+) and Windows 11 ship `curl.exe`, `tar.exe`, and
+OpenSSH (`ssh.exe` + `scp.exe`, 1809+) by default. All of them work
+from **both** `cmd.exe` and **PowerShell**. The commands after `scp`
+run on linxdot, not Windows — they need nothing extra.
+
+> `Invoke-WebRequest` is **PowerShell-only**. If your prompt looks like
+> `C:\Users\you>` you are in `cmd.exe` — use the `curl` block below,
+> or type `powershell` to drop into PowerShell first.
+
+### cmd.exe variant
+
+```cmd
+:: 1. Download the bundle into your current directory
+curl -L -o meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/v0.1.0/meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+
+:: 2. Copy to linxdot
+scp meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
+
+:: 3. SSH in and install
+ssh root@<linxdot-ip>
+cd /tmp
+tar -xzf meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+cd meshtastic-bridge-v0.1.0
+sh install.sh
+```
+
+### PowerShell variant
 
 ```powershell
 # 0. (one time, if scp/ssh not present) Settings → Apps → Optional features → Add "OpenSSH Client"
 
-# 1. Download the bundle into your current directory (or use the browser)
-Invoke-WebRequest -Uri "https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/VERSION/meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz" -OutFile meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
+# 1. Download the bundle (curl -L also works; Invoke-WebRequest is the
+#    PowerShell-native option)
+Invoke-WebRequest -Uri "https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/v0.1.0/meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz" -OutFile meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
 
 # 2. Copy to linxdot
-scp meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
+scp meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
 
 # 3. SSH in and install
 ssh root@<linxdot-ip>
 cd /tmp
-tar -xzf meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
-cd meshtastic-bridge-VERSION
+tar -xzf meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+cd meshtastic-bridge-v0.1.0
 sh install.sh
 ```
 
@@ -154,38 +179,59 @@ docker stop meshtastic-bridge && sleep 2 && docker start meshtastic-bridge
 ### 安裝 — Linux / macOS
 
 ```sh
-# 1. 下載安裝包（把 VERSION 換成例如 v0.1.0）
-curl -LO https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/VERSION/meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
+# 1. 下載安裝包（之後出新版時把 v0.1.0 換成新 tag）
+curl -LO https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/v0.1.0/meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
 
 # 2. 推到 linxdot
-scp meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
+scp meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
 
 # 3. SSH 進去解壓 + 跑 install
 ssh root@<linxdot-ip>
 cd /tmp
-tar -xzf meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
-cd meshtastic-bridge-VERSION
+tar -xzf meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+cd meshtastic-bridge-v0.1.0
 sh install.sh
 ```
 
-### 安裝 — Windows PowerShell
+### 安裝 — Windows
 
-Windows 10（1809 以後）與 Windows 11 內建 OpenSSH（`ssh` + `scp`），同一份流程 PowerShell 直接跑得起來。`scp` 之後的指令是在 **linxdot 那台 OpenWrt 上**執行，跟 Windows 端無關。
+Windows 10（1803 以後）與 Windows 11 內建 `curl.exe`、`tar.exe`、OpenSSH（`ssh.exe` + `scp.exe`，1809+），在 **cmd.exe 跟 PowerShell 都可用**。`scp` 之後的指令是在 **linxdot 那台 OpenWrt 上**執行，跟 Windows 端無關。
+
+> `Invoke-WebRequest` 是 **PowerShell 限定**。如果你的提示字元是 `C:\Users\你>` 那是 `cmd.exe`，請改用下面 `curl` 版本，或先打 `powershell` 進 PowerShell。
+
+#### cmd.exe 版本
+
+```cmd
+:: 1. 下載安裝包到目前目錄
+curl -L -o meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/v0.1.0/meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+
+:: 2. 推到 linxdot
+scp meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
+
+:: 3. SSH 進去解壓 + 跑 install
+ssh root@<linxdot-ip>
+cd /tmp
+tar -xzf meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+cd meshtastic-bridge-v0.1.0
+sh install.sh
+```
+
+#### PowerShell 版本
 
 ```powershell
 # 0.（如果 ssh / scp 不存在）設定 → 應用程式 → 選用功能 → 加入「OpenSSH 用戶端」
 
-# 1. 下載安裝包到目前目錄（或自己用瀏覽器抓）
-Invoke-WebRequest -Uri "https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/VERSION/meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz" -OutFile meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
+# 1. 下載安裝包到目前目錄（`curl -L` 也可以；Invoke-WebRequest 是 PowerShell 原生選項）
+Invoke-WebRequest -Uri "https://github.com/livinghuang/Public_29_linxdot_meshtastic/releases/download/v0.1.0/meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz" -OutFile meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
 
 # 2. 推到 linxdot
-scp meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
+scp meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz root@<linxdot-ip>:/tmp/
 
 # 3. SSH 進去解壓 + 跑 install
 ssh root@<linxdot-ip>
 cd /tmp
-tar -xzf meshtastic-bridge-VERSION-linxdot-aarch64.tar.gz
-cd meshtastic-bridge-VERSION
+tar -xzf meshtastic-bridge-v0.1.0-linxdot-aarch64.tar.gz
+cd meshtastic-bridge-v0.1.0
 sh install.sh
 ```
 
